@@ -2,11 +2,13 @@ import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 
 
+import MainFrame from 'src/components/MainFrame';
 import Wrapper from "src/components/Wrapper";
 import Screen from "src/components/Screen";
 import Word from "src/components/Word";
 import ButtonBox from "src/components/ButtonBox";
 import Button from "src/components/Button";
+import Copyright from 'src/components/Copyright';
 
 
 const btnValues = [
@@ -129,36 +131,39 @@ const HomePage = () => {
   }
 
   return (
-    <Wrapper>
-    <Word val={calc.num ? calc.num : calc.res} />
-      <Screen value={calc.num ? parseInt(calc.num).toLocaleString('id-ID') : parseInt(calc.res).toLocaleString('id-ID')} />
-      <ButtonBox>
-        {btnValues.flat().map((btn, i) => {
-          return (
-            <Button
-              key={i}
-              className={btn === "=" ? "equals" : ""}
-              value={btn}
-              onClick={
-                btn === "C"
-                  ? resetClickHandler
-                  : btn === "+-"
-                  ? invertClickHandler
-                  : btn === "%"
-                  ? percentClickHandler
-                  : btn === "="
-                  ? equalsClickHandler
-                  : btn === "/" || btn === "X" || btn === "-" || btn === "+"
-                  ? signClickHandler
-                  : btn === "."
-                  ? commaClickHandler
-                  : numClickHandler
-              }
-            />
-          );
-        })}
-      </ButtonBox>
-    </Wrapper>
+    <MainFrame>
+      <Wrapper>
+        <Word val={calc.num ? calc.num : calc.res} />
+        <Screen value={calc.num ? parseInt(calc.num).toLocaleString('id-ID') : parseInt(calc.res).toLocaleString('id-ID')} />
+        <ButtonBox>
+          {btnValues.flat().map((btn, i) => {
+            return (
+              <Button
+                key={i}
+                className={btn === "=" ? "equals" : ""}
+                value={btn}
+                onClick={
+                  btn === "C"
+                    ? resetClickHandler
+                    : btn === "+-"
+                    ? invertClickHandler
+                    : btn === "%"
+                    ? percentClickHandler
+                    : btn === "="
+                    ? equalsClickHandler
+                    : btn === "/" || btn === "X" || btn === "-" || btn === "+"
+                    ? signClickHandler
+                    : btn === "."
+                    ? commaClickHandler
+                    : numClickHandler
+                }
+              />
+            );
+          })}
+        </ButtonBox>
+      </Wrapper>
+      <Copyright></Copyright>
+    </MainFrame>
   )
 }
 
