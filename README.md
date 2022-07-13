@@ -1,5 +1,7 @@
 # README
 
+Live Demo on: https://calc-app.renofizaldy.com/
+
 Welcome to Simple Calculator App made by [RedwoodJS](https://redwoodjs.com) (ReactJS as Frontend - GraphQL as API Backend)
 
 > **Prerequisites**
