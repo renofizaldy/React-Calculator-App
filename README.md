@@ -13,6 +13,18 @@ Start by installing dependencies:
 yarn install
 ```
 
+Try to migrate database first:
+
+```
+yarn rw prisma migrate dev
+```
+
+Rename .env.defaults to .env with DATABASE_URL variables that contain:
+
+```
+DATABASE_URL=postgresql://postgres:LyBqA6eOsd6xhyyelMzm@containers-us-west-73.railway.app:6865/railway
+```
+
 Then change into that directory and start the development server:
 
 ```
@@ -24,7 +36,6 @@ Your browser should automatically open to http://localhost:8910 where you'll see
 
 > **The Redwood CLI**
 >
-> Congratulations on running your first Redwood CLI command!
 > From dev to deploy, the CLI is with you the whole way.
 > And there's quite a few commands at your disposal:
 > ```
