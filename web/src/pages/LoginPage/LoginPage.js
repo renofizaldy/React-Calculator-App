@@ -25,7 +25,8 @@ const LoginPage = () => {
 
   const [create, { loading, error }] = useMutation(CREATE_USERACT, {
     onCompleted: (data) => {
-      localStorage.setItem('_sesstime', JSON.stringify({id_sess: data.createUseract.id}));
+      localStorage.setItem('_sesstime', JSON.stringify({id_sess: data.createUseract.id}))
+      console.log(data.createUseract.id)
     }
   })
 
