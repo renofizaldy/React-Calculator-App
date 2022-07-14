@@ -62,8 +62,7 @@ const SignupPage = () => {
         }
       })
 
-      // user is signed in automatically
-      toast.success('Welcome!')
+      toast.success('Halo!')
     }
   }
 
