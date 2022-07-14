@@ -20,9 +20,9 @@ model User {
   resetToken          String?
   resetTokenExpiresAt DateTime?
 }
-model User_time {
+model Useract {
   id                  Int       @id @default(autoincrement())
   id_user             Int
-  lastLogin           DateTime?
-  lastLogout          DateTime?
+  lastLogin           DateTime @default(now())
+  lastLogout          DateTime
 }

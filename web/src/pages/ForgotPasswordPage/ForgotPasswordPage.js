@@ -41,8 +41,8 @@ const ForgotPasswordPage = () => {
 
       <main className="rw-main">
         <Toaster toastOptions={{ className: 'rw-toast', duration: 6000 }} />
-        <div class="login-page">
-          <div class="form">
+        <div className="login-page">
+          <div className="form">
             <h3 className='mb-1'>Lupa Password</h3>
             <Form onSubmit={onSubmit} className="login-form">
               <Label
@@ -64,7 +64,7 @@ const ForgotPasswordPage = () => {
 
               <Submit className="button-74">Kirim</Submit>
           
-              <p class="message"><Link to={routes.login()} className="rw-link">Login</Link></p>
+              <p className="message"><Link to={routes.login()} className="rw-link">Login</Link></p>
             </Form>
           </div>
         </div>

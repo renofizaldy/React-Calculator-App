@@ -1,5 +1,4 @@
 import { Link, routes } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
 
 
 import MainFrame from 'src/components/MainFrame';

@@ -11,8 +11,24 @@ import { useAuth } from '@redwoodjs/auth'
 import { MetaTags } from '@redwoodjs/web'
 import { toast, Toaster } from '@redwoodjs/web/toast'
 import { useState, useEffect, useRef } from 'react'
+import { useMutation } from '@redwoodjs/web'
+
+const CREATE_USERACT = gql`
+  mutation createUseractMutation($input: CreateUseractInput!) {
+    createUseract(input: $input) {
+      id
+    }
+  }
+`
 
 const LoginPage = () => {
+
+  const [create, { loading, error }] = useMutation(CREATE_USERACT, {
+    onCompleted: (data) => {
+      localStorage.setItem('_sesstime', JSON.stringify({id_sess: data.createUseract.id}));
+    }
+  })
+
   const { isAuthenticated, logIn } = useAuth()
 
   useEffect(() => {
@@ -34,6 +50,17 @@ const LoginPage = () => {
     } else if (response.error) {
       toast.error(response.error)
     } else {
+      create({
+        variables: {
+          input: {
+            id_user: response.id,
+            lastLogin: new Date().toISOString(),
+            lastLogout: new Date().toISOString()
+          }
+        }
+      })
+
+      // user is signed in automatically
       toast.success('Welcome back!')
     }
   }
@@ -43,8 +70,8 @@ const LoginPage = () => {
       <MetaTags title="Login" />
       <main className="rw-main">
         <Toaster toastOptions={{ className: 'rw-toast', duration: 6000 }} />
-        <div class="login-page">
-          <div class="form">
+        <div className="login-page">
+          <div className="form">
             <h3 className='mb-1'>Akun Login</h3>
             <Form onSubmit={onSubmit} className="login-form">
               <Label
@@ -89,7 +116,7 @@ const LoginPage = () => {
 
               <Submit className="button-74">Login</Submit>
           
-              <p class="message">
+              <p className="message">
                 <Link
                   to={routes.forgotPassword()}
                   className="rw-forgot-link"
@@ -97,7 +124,7 @@ const LoginPage = () => {
                   Lupa password?
                 </Link>
               </p>
-              <p class="message">Belum terdaftar? <Link to={routes.signup()}>Daftar</Link></p>
+              <p className="message">Belum terdaftar? <Link to={routes.signup()}>Daftar</Link></p>
             </Form>
           </div>
         </div>

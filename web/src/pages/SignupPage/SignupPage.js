@@ -12,8 +12,24 @@ import { useAuth } from '@redwoodjs/auth'
 import { MetaTags } from '@redwoodjs/web'
 import { toast, Toaster } from '@redwoodjs/web/toast'
 import { useEffect } from 'react'
+import { useMutation } from '@redwoodjs/web'
+
+const CREATE_USERACT = gql`
+  mutation createUseractMutation($input: CreateUseractInput!) {
+    createUseract(input: $input) {
+      id
+    }
+  }
+`
 
 const SignupPage = () => {
+
+  const [create, { loading, error }] = useMutation(CREATE_USERACT, {
+    onCompleted: (data) => {
+      localStorage.setItem('_sesstime', JSON.stringify({id_sess: data.createUseract.id}));
+    }
+  })
+
   const { isAuthenticated, signUp } = useAuth()
 
   useEffect(() => {
@@ -36,6 +52,16 @@ const SignupPage = () => {
     } else if (response.error) {
       toast.error(response.error)
     } else {
+      create({
+        variables: {
+          input: {
+            id_user: response.id,
+            lastLogin: new Date().toISOString(),
+            lastLogout: new Date().toISOString()
+          }
+        }
+      })
+
       // user is signed in automatically
       toast.success('Welcome!')
     }
@@ -47,8 +73,8 @@ const SignupPage = () => {
 
       <main className="rw-main">
         <Toaster toastOptions={{ className: 'rw-toast', duration: 6000 }} />
-        <div class="login-page">
-          <div class="form">
+        <div className="login-page">
+          <div className="form">
             <h3 className='mb-1'>Daftar Akun</h3>
             <Form onSubmit={onSubmit} className="login-form">
               <Label
@@ -93,7 +119,7 @@ const SignupPage = () => {
 
               <Submit className="button-74">Daftar</Submit>
           
-              <p class="message"><Link to={routes.login()} className="rw-link">Login</Link></p>
+              <p className="message"><Link to={routes.login()} className="rw-link">Login</Link></p>
             </Form>
           </div>
         </div>
